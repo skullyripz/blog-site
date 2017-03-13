@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-aboutpage{% endblock %}
+
+{% block content %}
+
+	<div class="hero is-primary">
+		<div class="hero-body">
+			<div class="container">
+				<h2 class="title">{{ page.hero_main_text|richtext }}</h2>
+				<h3 class="subtitle">{{ page.hero_sub_text|richtext }}</h3>
+			</div>
+		</div>
+	</div>
+	
+	<div class="section">
+		<div class="container content">
+			{{ page.body|richtext }}
+		</div>
+	</div>
+	
+{% endblock %}

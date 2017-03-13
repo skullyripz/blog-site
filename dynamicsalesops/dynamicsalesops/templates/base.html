@@ -1,0 +1,107 @@
+{% load static wagtailuserbar wagtailimages_tags %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>
+            {% block title %}
+                {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+            {% endblock %}
+            {% block title_suffix %}
+                {% with self.get_site.site_name as site_name %}
+                    {% if site_name %}- {{ site_name }}{% endif %}
+                {% endwith %}
+            {% endblock %}
+        </title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {# Global stylesheets #}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/dynamicsalesops.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bulma.css' %}">
+
+        {% block extra_css %}
+            {# Override this in templates to add extra stylesheets #}
+        {% endblock %}
+    </head>
+
+    <body class="{% block body_class %}{% endblock %}">
+        {% wagtailuserbar %}
+        
+		<nav class="nav">
+		  <div class="nav-left">
+		    <a class="nav-item" href="/">
+		      <img src="{% static '/images/DynamicSalesOps_SiteLogo.png' %}" alt="{{ page.logo_alt_text }}">
+		    </a>
+		  </div>
+		
+		  <div class="nav-center">
+		    <a class="nav-item">
+		      <span class="icon">
+		        <i class="fa fa-facebook"></i>
+		      </span>
+		    </a>
+		    <a class="nav-item" target="_blank" href="http://www.twitter.com/dynamicsalesops">
+		      <span class="icon">
+		        <i class="fa fa-twitter"></i>
+		      </span>
+		    </a>
+		  </div>
+		
+		  <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
+		  <!-- You need JavaScript to toggle the "is-active" class on "nav-menu" -->
+		  <span class="nav-toggle" id="nav-toggle">
+		    <span></span>
+		    <span></span>
+		    <span></span>
+		  </span>
+		
+		  <!-- This "nav-menu" is hidden on mobile -->
+		  <!-- Add the modifier "is-active" to display it on mobile -->
+		  <div class="nav-right nav-menu" id="nav-menu">
+		    <a class="nav-item" href="/blog">
+		      Blog
+		    </a>
+		    <a class="nav-item" href="/about">
+		      About
+		    </a>
+		    <a class="nav-item" href="/contact">
+		      Contact
+		    </a>
+		    <a class="nav-item" href="/">
+		      Back to Home
+		    </a>
+		
+		  </div>
+		</nav>
+
+        {% block content %}{% endblock %}
+
+		<footer class="footer">
+		  <div class="container">
+		    <div class="content">
+		      <p>
+		        <strong>Dynamic Sales Ops</strong>
+		      </p>
+		      <p>
+		        <a class="icon" href="https://twitter.com/dynamicsalesops">
+		          <i class="fa fa-twitter"></i>
+		        </a>
+		      </p>
+		    </div>
+		  </div>
+		</footer>
+	
+        {# Global javascript #}
+        <script type="text/javascript" src="{% static 'js/dynamicsalesops.js' %}"></script>
+
+        {% block extra_js %}
+            {# Override this in templates to add extra javascript #}
+        {% endblock %}
+    </body>
+</html>

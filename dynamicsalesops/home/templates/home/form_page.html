@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-formpage{% endblock %}
+
+{% block content %}
+
+	<div class="hero is-primary">
+		<div class="hero-body">
+			<div class="container">
+				<h2 class="title">{{ page.title|richtext }}</h2>
+				<h3 class="subtitle">{{ page.intro|richtext }}</h3>
+			</div>
+		</div>
+	</div>
+	
+	<br>
+	
+	<form action="{% pageurl page %}" method="POST">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input class="control" type="submit">
+	</form>
+	
+{% endblock %}

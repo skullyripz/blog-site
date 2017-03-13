@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-aboutpage{% endblock %}
+
+{% block content %}
+	<div class="section content">
+		{{ page.intro|richtext }}
+		{{ page.thank_you_text|richtext }}
+		<p><a href="/">Back to the home page</a></p>
+	</div>
+{% endblock %}

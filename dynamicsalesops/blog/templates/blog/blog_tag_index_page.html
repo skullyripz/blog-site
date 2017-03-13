@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+
+    {% if request.GET.tag|length %}
+    <div class="hero is-primary">
+		<div class="hero-body">
+		    <h1 class="title">Showing pages tagged</h1>
+		    <div class="subtitle">"{{ request.GET.tag }}"</div>
+		</div>
+	</div>
+    {% endif %}
+
+    <div class="section">
+	<div class="container">
+    {% for blogpage in blogpages %}
+
+              <small>{{ blogpage.date }}</small>
+              <h2 class="title"><a href="{% pageurl blogpage %}">{{ blogpage.title }}</a></h2><br />
+              {% if blogpage.author %}
+                <p>By {{ blogpage.author.profile }}</p>
+              {% endif %}
+              
+              <div style="display: block;">
+              {% with blogpage.main_image as main_image %}
+				{% if main_image %}{% image main_image fill-400x200 %}{% endif %}
+			  {% endwith %}
+			  </div>
+			   			
+			  <h5 class="subtitle is-5">{{ blogpage.intro }}</h5>
+			  {% if blogpage.tags.all.count %}
+			    <div class="tags">
+			        <h3>Tags</h3>
+			        {% for tag in blogpage.tags.all %}
+			            <span class="tag is-primary is-medium is-link"><a style="color: white" href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></span>
+			        {% endfor %}
+			    </div>
+			  {% endif %}    
+
+			  <hr>          
+
+    {% empty %}
+        No pages found with that tag.
+    {% endfor %}
+	</div>
+	</div>
+
+{% endblock %}

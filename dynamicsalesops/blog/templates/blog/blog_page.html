@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-blogpage{% endblock %}
+
+{% block content %}
+	<div class="section">
+		<div class="container">
+		    <h1 class="title">{{ page.title }}</h1>
+		    <p class="meta subtitle">{{ page.date }}</p>
+
+              {% with page.main_image as main_image %}
+				{% if main_image %}{% image main_image fill-500x300 %}{% endif %}
+			  {% endwith %}
+			  <p>{{ main_image.caption }}</p>
+			  		
+		    <div class="hero-body subtitle">{{ page.intro }}</div>
+		    <div class="content">
+		
+			    {{ page.body|richtext }}
+			    
+			    {% if page.tags.all.count %}
+				    <div class="tags">
+				        <h3>Tags</h3>
+				        {% for tag in page.tags.all %}
+				            <span class="tag is-primary is-medium is-link"><a style="color: white" href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></span>
+				        {% endfor %}
+				    </div>
+				{% endif %}
+				
+				<br>
+			    <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+		</div>
+		</div>
+	</div>
+{% endblock %}
