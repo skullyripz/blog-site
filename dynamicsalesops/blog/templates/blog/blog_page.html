@@ -9,29 +9,86 @@
 		<div class="container">
 		    <h1 class="title">{{ page.title }}</h1>
 		    <p class="meta subtitle">{{ page.date }}</p>
-
+		    
+		    
+		    <p>Share this article:</p>
+		    
+		    <!-- Twitter -->
+		    <a href="http://twitter.com/share?text={{ page.title }}&url={{ page.full_url }}&via=k_a_christian" target="_blank" class="share-btn twitter">
+				<i class="fa fa-twitter"></i>
+			</a>
+			
+			<!-- Google Plus -->
+			<a href="https://plus.google.com/share?url={{ page.full_url }}" target="_blank" class="share-btn google-plus">
+				<i class="fa fa-google-plus"></i>
+			</a>
+			
+			<!-- Facebook -->
+			<a href="http://www.facebook.com/sharer/sharer.php?u={{ page.full_url }}" target="_blank" class="share-btn facebook">
+				<i class="fa fa-facebook"></i>
+			</a>
+			
+			<!-- LinkedIn -->
+			<a href="http://www.linkedin.com/shareArticle?url={{ page.full_url }}&title={{ page.title }}&summary={{ page.intro }}" target="_blank" class="share-btn linkedin">
+			    <i class="fa fa-linkedin"></i>
+			</a>
+			
+			<!-- Email -->
+			<a href="mailto:?subject={{ page.title }}&body={{ page.full_url }}>" target="_blank" class="share-btn email">
+			    <i class="fa fa-envelope"></i>
+			</a>
+			
+			<br>
+			
               {% with page.main_image as main_image %}
 				{% if main_image %}{% image main_image fill-500x300 %}{% endif %}
 			  {% endwith %}
 			  <p>{{ main_image.caption }}</p>
 			  		
 		    <div class="hero-body subtitle">{{ page.intro }}</div>
-		    <div class="content">
-		
-			    {{ page.body|richtext }}
-			    
-			    {% if page.tags.all.count %}
-				    <div class="tags">
-				        <h3>Tags</h3>
-				        {% for tag in page.tags.all %}
-				            <span class="tag is-primary is-medium is-link"><a style="color: white" href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></span>
-				        {% endfor %}
-				    </div>
-				{% endif %}
-				
-				<br>
-			    <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
-		</div>
+			    <div class="content">
+			
+				    {{ page.body|richtext }}
+				    
+				    {% if page.tags.all.count %}
+					    <div class="tags">
+					        <h3>Tags</h3>
+					        {% for tag in page.tags.all %}
+					            <span class="tag is-primary is-medium is-link"><a style="color: white" href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></span>
+					        {% endfor %}
+					    </div>
+					{% endif %}
+					 <p><a href="{{ page.get_parent.url }}">Return to blog archive</a></p>
+					<hr>	
+				</div>
+
+			</div>
 		</div>
 	</div>
+	
+	<div class="section">
+		<h1 class="title">Comments:</h1>
+		<p><small>Please note, comments will be submitted for moderation and will not show instantly. Please be patient.</small></p>
+			<form method="post" id="comment-new">
+			    {% csrf_token %}
+			    {{ form.as_p }}     
+			    <br>
+			    <button class="button is-primary" type="submit">Add Comment</button>
+			</form>
+		<hr>
+		<div class="content comment">
+			{% for comment in page.comments.all %}
+				{% if comment.approved_comment %}
+					<h2>{{ comment.comment_author }}</h2>
+					<small>{{ comment.created_date }}</small>
+					<p>{{ comment.text|linebreaks }}</p>
+					<hr>
+				{% endif %}
+			{% empty %}
+				<p>No comments yet...</p>
+			{% endfor %}
+		</div>
+		
+	</div>
+	
 {% endblock %}

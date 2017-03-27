@@ -7,6 +7,7 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, FieldRowPanel, InlinePanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.wagtailforms.edit_handlers import FormSubmissionsPanel
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from modelcluster.fields import ParentalKey
 
@@ -56,6 +57,7 @@ class FormPage(AbstractEmailForm):
 	thank_you_text = RichTextField(blank=True)
 	
 	content_panels = AbstractEmailForm.content_panels + [
+		FormSubmissionsPanel(),
 		FieldPanel('intro', classname='full'),
 		InlinePanel('form_fields', label='Form fields'),
 		FieldPanel('thank_you_text', classname='full'),

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'wagtail.wagtailsearch',
     'wagtail.wagtailadmin',
     'wagtail.wagtailcore',
+    'wagtail.contrib.modeladmin',
 
     'modelcluster',
     'taggit',
@@ -65,6 +66,7 @@ MIDDLEWARE = [
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+
 ]
 
 ROOT_URLCONF = 'dynamicsalesops.urls'

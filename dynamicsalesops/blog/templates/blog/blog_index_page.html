@@ -30,6 +30,9 @@
 			        </div>
 			
 			        <h5 class="subtitle is-5">{{ post.intro }}</h5>
+			    
+			    <a href="{% pageurl post %}">Comments: {{ post.comments.count }}</a>
+			    
 			    {% if post.tags.all.count %}
 				    <div class="tags">
 				        <h3>Tags</h3>

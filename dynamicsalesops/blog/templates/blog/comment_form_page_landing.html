@@ -1,0 +1,9 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h2>Thanks for commenting!</h2>
+    <p><small>Your comment has been submitted for moderation</small></p><br>
+    <a class="button is-primary" href={{ page.get_parent.url }}>Back to blog</a>
+    <br>
+{% endblock %}
+
